@@ -7,7 +7,8 @@ n8n with PostgreSQL running in docker compose with [OrbStack](https://docs.orbst
 To start n8n with PostgreSQL simply start docker-compose by executing the following
 command in the current folder.
 
-**IMPORTANT:** But before you do, copy [`.env.example`](.env.example) as `.env` , that change the default users and passwords in the [`.env`](.env) file!
+**IMPORTANT:** But before you do, copy [`.env.example`](.env.example) as `.env` in project root directory,
+then change the default postgres username and password in the [`.env`](.env) file!
 
 ```shell
 docker-compose up

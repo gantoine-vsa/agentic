@@ -48,7 +48,6 @@ services:
       - N8N_HOST=n8n.${COMPOSE_PROJECT_NAME}.orb.local
       - WEBHOOK_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
-
     volumes:
       - n8n-data:/home/node/.n8n
     depends_on:
