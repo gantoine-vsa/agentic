@@ -1,18 +1,26 @@
-# Agentic AI Playground
+# n8n
 
-1. Running **n8n** workflow automation tool in `docker-compose` with [OrbStack](https://docs.orbstack.dev/docker/domains)
+Running **n8n** workflow automation tool in docker-compose with [OrbStack](https://docs.orbstack.dev/docker/domains)
 
 ## Start
 
-To start **n8n** with **PostgreSQL** simply start `docker-compose` by executing the following
+To start **n8n** with **PostgreSQL** simply start docker-compose by executing the following
 command in the current folder.
 
 > [!IMPORTANT]  
 > But before you do, copy [`.env.example`](.env.example) as `.env` in the project root directory,
-> then change the default postgres `username` and `password` in the [`.env`](.env) file, if you prefer.
+> then change the default postgres username and password in the [`.env`](.env) file! if you prefer.
 
 ```shell
 docker-compose up
+```
+
+To stop it execute:
+
+```shell
+docker-compose down
+# if you want stop and also want to remove data
+docker compose down -v
 ```
 
 Access n8n dashboard at:
@@ -24,14 +32,6 @@ open https://n8n.agentic.orb.local
 > [!NOTE]  
 > First time when you access, you will see: `Set up owner account` page.
 > Enter some fake data, then you will be redirected to Dashboard
-
-### To Stop
-
-```shell
-docker-compose down
-# if you want stop and also want to remove data
-docker compose down -v
-```
 
 ## Configuration
 
