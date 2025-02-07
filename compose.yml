@@ -12,7 +12,7 @@ services:
       - '5432:5432'
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./infra/init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:Z
+      - ./config/db/init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:Z
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -27,7 +27,8 @@ services:
 
   ###########################################################################
   # n8n is an extendable workflow automation tool.
-  # documentation: https://n8n.io
+  # Documentation: https://n8n.io
+  # Environment variables: https://docs.n8n.io/hosting/configuration/environment-variables/
   ###########################################################################
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -43,13 +44,19 @@ services:
       - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
       - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
       - NODE_ENV=production
-      - N8N_PORT=443
-      - N8N_PROTOCOL=https
-      - N8N_HOST=n8n.${COMPOSE_PROJECT_NAME}.orb.local
+      - N8N_EDITOR_BASE_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
       - WEBHOOK_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      # - N8N_EMAIL_MODE=smtp
+      # - N8N_SMTP_HOST=<smtp.sendgrid.net>
+      # - N8N_SMTP_PORT=<465>
+      # - N8N_SMTP_USER=<apikey>
+      # - N8N_SMTP_PASS=<sendgrid api key>
+      # - N8N_SMTP_SENDER=<n8n@example.com>
+      # - N8N_SMTP_SSL=true
     volumes:
-      - n8n-data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
+      - ./config/workflows:/workflows
     depends_on:
       postgres:
         condition: service_healthy
@@ -60,4 +67,4 @@ services:
 ###########################################################################
 volumes:
   pg_data: {}
-  n8n-data: {}
+  n8n_data: {}
