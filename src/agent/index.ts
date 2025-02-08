@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { streamText, generateText, tool } from "ai";
+import { smallOpenAiModel as model } from "../shared/models.ts";
 // import { lmsDefaultAIModel as model } from "../shared/models.ts";
 
 const getWeatherTool = tool({
