@@ -21,6 +21,12 @@ Access n8n dashboard at:
 open https://n8n.agentic.orb.local
 ```
 
+Access qdrant dashboard at:
+
+```shell
+open https://qdrant.agentic.orb.local/dashboard#/welcome
+```
+
 > [!NOTE]  
 > First time when you access, you will see: `Set up owner account` page.
 > Enter some fake data, then you will be redirected to Dashboard
@@ -36,6 +42,25 @@ docker compose down -v
 ## Configuration
 
 The default name of the database, user and password for PostgreSQL can be changed in the [`.env`](.env) file in the current directory.
+
+### For Mac users running OLLAMA locally
+
+If you're running **OLLAMA** locally on your Mac (not in Docker), you need to modify the `OLLAMA_HOST` environment variable in the n8n service configuration in [compose.yaml](../compose.yml) .
+
+Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>":
+
+Head to <https://n8n.agentic.orb.local/home/credentials>
+Click on "Local Ollama service"
+Change the base URL to "<http://host.docker.internal:11434>"
+
+## Usage
+
+Quick start and usage
+
+- Open <http://n8n.agentic.orb.loca/> in your browser to set up n8n. You’ll only have to do this once.
+- Open the included workflow: <http://n8n.agentic.orb.loca/workflow/srOnR8PAY3u4RSwb>
+- Select **Test workflow** to start running the workflow.
+- If this is the first time you’re running the workflow, you may need to wait until `Ollama` finishes downloading `Llama3.2`.
 
 ## Reference
 

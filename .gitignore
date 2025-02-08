@@ -64,3 +64,4 @@ pids
 /TODO
 compose.override.yml
 dist
+shared
