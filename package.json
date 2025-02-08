@@ -1,35 +1,37 @@
 {
-  "name": "agentic",
-  "version": "1.0.0",
-  "description": "AI SDK Examples",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc -p .",
-    "lint": "tsc --noEmit -p .",
-    "array": "tsx --env-file=.env src/array/index.ts",
-    "agent": "tsx --env-file=.env src/agent/index.ts",
-    "enum": "tsx --env-file=.env src/enum/index.ts",
-    "evaluator": "tsx --env-file=.env src/evaluator/index.ts"
-  },
-  "author": "Sumanth Chinthagunta",
-  "license": "MIT",
-  "packageManager": "pnpm@10.2.0",
-  "engines": {
-    "node": ">=20",
-    "pnpm": ">=9"
-  },
-  "type": "module",
-  "dependencies": {
-    "@ai-sdk/openai": "1.1.9",
-    "@ai-sdk/openai-compatible": "0.1.8",
-    "ai": "4.1.26",
-    "ollama-ai-provider": "1.2.0",
-    "zod": "3.24.1"
-  },
-  "devDependencies": {
-    "@types/node": "22.13.1",
-    "tsx": "4.19.2",
-    "typescript": "5.7.3"
-  }
+	"name": "agentic",
+	"version": "1.0.0",
+	"description": "AI SDK Examples",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc -p .",
+		"lint": "tsc --noEmit -p .",
+		"format": "biome format --write",
+		"array": "tsx --env-file=.env src/array/index.ts",
+		"agent": "tsx --env-file=.env src/agent/index.ts",
+		"enum": "tsx --env-file=.env src/enum/index.ts",
+		"evaluator": "tsx --env-file=.env src/evaluator/index.ts"
+	},
+	"author": "Sumanth Chinthagunta",
+	"license": "MIT",
+	"packageManager": "pnpm@10.2.0",
+	"engines": {
+		"node": ">=20",
+		"pnpm": ">=9"
+	},
+	"type": "module",
+	"dependencies": {
+		"@ai-sdk/openai": "1.1.9",
+		"@ai-sdk/openai-compatible": "0.1.8",
+		"@biomejs/biome": "1.9.4",
+		"ai": "4.1.26",
+		"ollama-ai-provider": "1.2.0",
+		"zod": "3.24.1"
+	},
+	"devDependencies": {
+		"@types/node": "22.13.1",
+		"tsx": "4.19.2",
+		"typescript": "5.7.3"
+	}
 }

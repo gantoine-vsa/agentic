@@ -6,7 +6,7 @@ Pull local models (optional)
 
 ```shell
 ollama pull llama3.2:latest
-ollama pull nomic-embed-text # to generate embeddings
+ollama pull nomic-embed-text:latest # to generate embeddings
 # ollama pull deepseek-r1:7b
 ```
 
@@ -19,8 +19,10 @@ ollama run llama3.2:latest
 # ollama run deepseek-r1:7b
 ```
 
+> use 
+
 ```shell
 ollama ls
 ollama ps
- ollama stop llama3.2:latest
+ollama stop llama3.2:latest
 ```

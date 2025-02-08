@@ -14,3 +14,13 @@ Playing with emerging **Agentic AI** frameworks
 - [x] Structured Outputs
 - [ ] Developer Messages
 - [ ] Reasoning Models
+
+### What you can build
+
+⭐️ **AI Agents** for scheduling appointments
+
+⭐️ **Summarize Company PDFs** securely without data leaks
+
+⭐️ **Smarter Teams Bots** for enhanced company communications and IT operations
+
+⭐️ **Private Financial Document Analysis** at minimal cost

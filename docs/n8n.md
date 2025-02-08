@@ -45,19 +45,22 @@ The default name of the database, user and password for PostgreSQL can be change
 
 ### For Mac users running OLLAMA locally
 
-If you're running **OLLAMA** locally on your Mac (not in Docker), you need to modify the `OLLAMA_HOST` environment variable in the n8n service configuration in [compose.yaml](../compose.yml) .
+If you're running [Ollama locally](./ollama.md) on your Mac (not in Docker), you need to modify the `OLLAMA_HOST` environment variable in the n8n service configuration in [compose.yaml](../compose.yml) .
 
-Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>":
+Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>" in docker compose logs:
 
 Head to <https://n8n.agentic.orb.local/home/credentials>  
 Click on "Local Ollama service"  
-Change the base URL to "<http://host.docker.internal:11434>"
+Change the base URL to <http://host.docker.internal:11434>
+
+> [!NOTE]  
+> If you are using [LM Studio](./lm-studio.md), use [OpenAI Model integration](https://n8n.io/integrations/?q=openai) and use lms url: <http://host.docker.internal:1234/v1> URL instead of ollma url: <http://host.docker.internal:11434>
 
 ## Usage
 
 Quick start and usage
 
-- Open <http://n8n.agentic.orb.loca/> in your browser to set up n8n. You’ll only have to do this once.
+- Open <http://n8n.agentic.orb.local> in your browser to set up n8n. You’ll only have to do this once.
 - Open the included workflow: <http://n8n.agentic.orb.loca/workflow/srOnR8PAY3u4RSwb>
 - Select **Test workflow** to start running the workflow.
 - If this is the first time you’re running the workflow, you may need to wait until `Ollama` finishes downloading `Llama3.2`.
@@ -66,3 +69,5 @@ Quick start and usage
 
 - [Deploy n8n with Docker Compose for Automating AI Workflows](https://autoize.com/deploy-n8n-with-docker-compose-for-automating-ai-workflows/)
 - [Self-hosted AI starter kit](https://github.com/n8n-io/self-hosted-ai-starter-kit/tree/main)
+- [Local AI with Docker, n8n, Qdrant, and Ollama](https://www.datacamp.com/tutorial/local-ai)
+- [Extract personal data with self-hosted LLM Mistral NeMo](https://n8n.io/workflows/2766-extract-personal-data-with-self-hosted-llm-mistral-nemo/)

@@ -1,36 +1,30 @@
 {
-  /* From https://www.totaltypescript.com/tsconfig-cheat-sheet */
-  "compilerOptions": {
-    /* Base Options: */
-    // Use correct ESM import behavior
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "ESNext",
-    // Allow JS files to be imported from TS and vice versa
-    "allowJs": true,
-    "resolveJsonModule": true,
-    // Treat files as modules even if it doesn't use import/export
-    "moduleDetection": "force",
-    // Disallow features that require cross-file awareness
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "module": "NodeNext",
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
-    "lib": [
-      "ESNext"
-    ],
-    "rootDir": "./src",
-    "outDir": "./dist",
-  },
-  "exclude": [
-    "TODO"
-  ],
-  "include": [
-    "src/**/*.ts"
-  ]
+	/* From https://www.totaltypescript.com/tsconfig-cheat-sheet */
+	"compilerOptions": {
+		/* Base Options: */
+		// Use correct ESM import behavior
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"target": "ESNext",
+		// Allow JS files to be imported from TS and vice versa
+		"allowJs": true,
+		"resolveJsonModule": true,
+		// Treat files as modules even if it doesn't use import/export
+		"moduleDetection": "force",
+		// Disallow features that require cross-file awareness
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		/* Strictness */
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"module": "NodeNext",
+		"allowImportingTsExtensions": true,
+		"rewriteRelativeImportExtensions": true,
+		"lib": ["ESNext"],
+		"rootDir": "./src",
+		"outDir": "./dist"
+	},
+	"exclude": ["TODO"],
+	"include": ["src/**/*.ts"]
 }
