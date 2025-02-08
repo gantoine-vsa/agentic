@@ -49,8 +49,8 @@ If you're running **OLLAMA** locally on your Mac (not in Docker), you need to mo
 
 Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>":
 
-Head to <https://n8n.agentic.orb.local/home/credentials>
-Click on "Local Ollama service"
+Head to <https://n8n.agentic.orb.local/home/credentials>  
+Click on "Local Ollama service"  
 Change the base URL to "<http://host.docker.internal:11434>"
 
 ## Usage
