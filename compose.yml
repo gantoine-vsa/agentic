@@ -32,8 +32,9 @@ services:
   ###########################################################################
   n8n:
     image: docker.n8n.io/n8nio/n8n
+    hostname: n8n
     container_name: n8n
-    restart: always
+    restart: unless-stopped
     links:
       - postgres
     environment:
@@ -46,7 +47,12 @@ services:
       - NODE_ENV=production
       - N8N_EDITOR_BASE_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
       - WEBHOOK_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
-      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - GENERIC_TIMEZONE
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_ENCRYPTION_KEY
+      - N8N_USER_MANAGEMENT_JWT_SECRET
+      - OLLAMA_HOST=host.docker.internal:11434
       # - N8N_EMAIL_MODE=smtp
       # - N8N_SMTP_HOST=<smtp.sendgrid.net>
       # - N8N_SMTP_PORT=<465>

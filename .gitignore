@@ -1,0 +1,66 @@
+#############################
+# OS generated files         #
+#############################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.pem
+
+#############################
+# Testing                   #
+#############################
+coverage
+coverage/*
+
+#############################
+# KDE/Linux generated files	 #
+#############################
+.directory
+
+#############################
+# Turborepo 				        #
+#############################
+.turbo
+out
+
+#############################
+# Runtime data              #
+#############################
+pids
+*.pid
+*.seed
+*.pid.lock
+
+#############################
+# environment files          #
+#############################
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+!.env.local.example
+!.env.production.example
+!.env.test.example
+!.env.project
+!.env.vault
+
+.secrets
+.secrets.*
+.secrets.local
+.secrets.*.local
+!.secrets.example
+!.secrets.local.example
+!.secrets.production.example
+!.secrets.test.example
+
+#############################
+# project specific files      #
+#############################
+/TODO
+compose.override.yml
+dist
