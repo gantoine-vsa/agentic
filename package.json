@@ -11,7 +11,8 @@
 		"array": "tsx --env-file=.env src/array/index.ts",
 		"agent": "tsx --env-file=.env src/agent/index.ts",
 		"enum": "tsx --env-file=.env src/enum/index.ts",
-		"evaluator": "tsx --env-file=.env src/evaluator/index.ts"
+		"evaluator": "tsx --env-file=.env src/evaluator/index.ts",
+		"loan": "tsx --env-file=.env src/loan/index.ts"
 	},
 	"author": "Sumanth Chinthagunta",
 	"license": "MIT",

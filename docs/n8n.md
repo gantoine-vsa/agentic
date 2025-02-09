@@ -71,3 +71,4 @@ Quick start and usage
 - [Self-hosted AI starter kit](https://github.com/n8n-io/self-hosted-ai-starter-kit/tree/main)
 - [Local AI with Docker, n8n, Qdrant, and Ollama](https://www.datacamp.com/tutorial/local-ai)
 - [Extract personal data with self-hosted LLM Mistral NeMo](https://n8n.io/workflows/2766-extract-personal-data-with-self-hosted-llm-mistral-nemo/)
+- [Building RAG Chatbot for Movie Recommendations with Qdrant and Open AI](https://n8n.io/workflows/2440-building-rag-chatbot-for-movie-recommendations-with-qdrant-and-open-ai/)
