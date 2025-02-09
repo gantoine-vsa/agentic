@@ -1,127 +1,169 @@
 {
-	"name": "ollama wikipedia",
-	"nodes": [
-		{
-			"parameters": {
-				"options": {}
-			},
-			"type": "@n8n/n8n-nodes-langchain.chatTrigger",
-			"typeVersion": 1.1,
-			"position": [0, 0],
-			"id": "d140ba47-53cb-454f-96c8-3e20efd714df",
-			"name": "When chat message received",
-			"webhookId": "f5fad747-ef46-4864-832f-909b1377cb2e"
-		},
-		{
-			"parameters": {
-				"options": {}
-			},
-			"type": "@n8n/n8n-nodes-langchain.agent",
-			"typeVersion": 1.7,
-			"position": [220, 0],
-			"id": "d2a3687d-648c-4d22-9919-c78ce74bcb8c",
-			"name": "AI Agent"
-		},
-		{
-			"parameters": {},
-			"type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-			"typeVersion": 1.3,
-			"position": [320, 220],
-			"id": "fb67876b-2485-4353-ac16-1d12d29e2320",
-			"name": "Window Buffer Memory"
-		},
-		{
-			"parameters": {
-				"model": "llama3.2:latest",
-				"options": {}
-			},
-			"type": "@n8n/n8n-nodes-langchain.lmChatOllama",
-			"typeVersion": 1,
-			"position": [160, 240],
-			"id": "65628b63-f9a5-40b9-87bc-364c6f0bc457",
-			"name": "Ollama Chat Model",
-			"credentials": {
-				"ollamaApi": {
-					"id": "xHuYe0MDGOs9IpBW",
-					"name": "Local Ollama service"
-				}
-			}
-		},
-		{
-			"parameters": {},
-			"type": "@n8n/n8n-nodes-langchain.toolWikipedia",
-			"typeVersion": 1,
-			"position": [680, 220],
-			"id": "fa589320-5e25-446e-a9b6-d2625c20a849",
-			"name": "Wikipedia"
-		},
-		{
-			"parameters": {
-				"content": "## How to use\n\n1. my name is sumanth\n2. is there any popular person with my name?\n "
-			},
-			"type": "n8n-nodes-base.stickyNote",
-			"position": [-380, 180],
-			"typeVersion": 1,
-			"id": "40044960-f044-46ed-8261-744dcae33d85",
-			"name": "Sticky Note"
-		}
-	],
-	"pinData": {},
-	"connections": {
-		"When chat message received": {
-			"main": [
-				[
-					{
-						"node": "AI Agent",
-						"type": "main",
-						"index": 0
-					}
-				]
-			]
-		},
-		"Window Buffer Memory": {
-			"ai_memory": [
-				[
-					{
-						"node": "AI Agent",
-						"type": "ai_memory",
-						"index": 0
-					}
-				]
-			]
-		},
-		"Ollama Chat Model": {
-			"ai_languageModel": [
-				[
-					{
-						"node": "AI Agent",
-						"type": "ai_languageModel",
-						"index": 0
-					}
-				]
-			]
-		},
-		"Wikipedia": {
-			"ai_tool": [
-				[
-					{
-						"node": "AI Agent",
-						"type": "ai_tool",
-						"index": 0
-					}
-				]
-			]
-		}
-	},
-	"active": false,
-	"settings": {
-		"executionOrder": "v1"
-	},
-	"versionId": "04428b8e-ba8d-41d8-8ae3-5f9902e12d79",
-	"meta": {
-		"templateCredsSetupCompleted": true,
-		"instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
-	},
-	"id": "hhK4JKMulQLVjYob",
-	"tags": []
+  "name": "ollama wikipedia",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d140ba47-53cb-454f-96c8-3e20efd714df",
+      "name": "When chat message received",
+      "webhookId": "f5fad747-ef46-4864-832f-909b1377cb2e"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ],
+      "id": "d2a3687d-648c-4d22-9919-c78ce74bcb8c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        220
+      ],
+      "id": "fb67876b-2485-4353-ac16-1d12d29e2320",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        160,
+        240
+      ],
+      "id": "65628b63-f9a5-40b9-87bc-364c6f0bc457",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        680,
+        220
+      ],
+      "id": "fa589320-5e25-446e-a9b6-d2625c20a849",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "content": "## How to use\n\n1. what is the sum of 12 and 11\n2. what is the sum of 12 and 11\n3. my name is sumanth\n4. is there any popular person with my name?\n5.",
+        "height": 180,
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        200
+      ],
+      "typeVersion": 1,
+      "id": "40044960-f044-46ed-8261-744dcae33d85",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        480,
+        220
+      ],
+      "id": "b4028faf-6b1a-4668-a1d2-94878ff2307a",
+      "name": "Calculator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3f5ab555-2b8b-4716-8325-a6d858e15284",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "hhK4JKMulQLVjYob",
+  "tags": []
 }
