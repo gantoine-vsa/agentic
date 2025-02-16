@@ -46,6 +46,7 @@ services:
     hostname: n8n-import
     container_name: n8n-import
     entrypoint: /bin/sh
+    profiles: [first-time-only]
     command:
       - "-c"
       - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
@@ -110,7 +111,28 @@ services:
         condition: service_healthy
       n8n-import:
         condition: service_completed_successfully
+        required: false
 
+  ###########################################################################
+  # flowise Open source low-code tool for developers to build
+  # customized LLM orchestration flow & AI agents.
+  # Documentation: https://flowiseai.com/
+  ###########################################################################
+  flowise:
+    image: flowiseai/flowise
+    hostname: flowise
+    container_name: flowise
+    restart: unless-stopped
+    profiles: [flowise]
+    environment:
+        - PORT=3001
+    expose:
+        - '3001'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - flowise_data:/root/.flowise
+    entrypoint: /bin/sh -c "sleep 3; flowise start"
 ###########################################################################
 # volumes
 ###########################################################################
@@ -118,3 +140,4 @@ volumes:
   pg_data: {}
   n8n_data: {}
   qdrant_storage: {}
+  flowise_data: {}

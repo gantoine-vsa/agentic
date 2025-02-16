@@ -1,0 +1,977 @@
+{
+  "name": "Financial Documents Assistant using Qdrant and Ollama",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerOn": "folder",
+        "path": "/data/shared/bank_statements",
+        "events": [
+          "add",
+          "change",
+          "unlink"
+        ],
+        "options": {
+          "awaitWriteFinish": true
+        }
+      },
+      "id": "7b2fdf9e-4120-4451-8ebc-31cb318da054",
+      "name": "Local File Trigger",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        60,
+        1540
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7b454eef-aedf-47dd-92a0-88b76102c8b5",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        1720
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "35ea70c4-8669-4975-a68d-bbaa094713c0",
+              "name": "directory",
+              "value": "/data/shared/bank_statements",
+              "type": "string"
+            },
+            {
+              "id": "1d081d19-ff4e-462a-9cbe-7af2244bf87f",
+              "name": "file_added",
+              "value": "={{ $json.event === 'add' && $json.path || ''}}",
+              "type": "string"
+            },
+            {
+              "id": "18f8dc03-51ca-48c7-947f-87ce8e1979bf",
+              "name": "file_changed",
+              "value": "={{ $json.event === 'change' && $json.path || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "65074ff7-037b-4b3b-b2c3-8a61755ab43b",
+              "name": "file_deleted",
+              "value": "={{ $json.event === 'unlink' && $json.path || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "9a1902e7-f94d-4d1f-9006-91c67354d3e8",
+              "name": "qdrant_collection",
+              "value": "local_bank_statements",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70b06fb9-0697-4608-ae69-586994baf328",
+      "name": "Set Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        240,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Step 1. Select the target folder\n[Read more about local file trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.localfiletrigger)\n\nIn this workflow, we'll monitor a specific folder on disk that n8n has access to. Since we're using docker, we can either use the n8n volume or mount a folder from the host machine.\n\nThe local file trigger is useful to execute the workflow whenever changes are made to our target folder.",
+        "height": 596.8351502261468,
+        "width": 665.0909497859384,
+        "color": 7
+      },
+      "id": "c85d2b9c-cee7-4e21-a403-4f9de13a63a4",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Try It Out!\n### This workflow does the following:\n* Monitors a target folder for changes using the local file trigger\n* Synchronises files in the target folder with their vectors in Qdrant\n* Mistral AI is used to create a Q&A AI agent on all files in the target folder\n\n### Need Help?\nJoin the [Discord](https://discord.com/invite/XPKeKXeB7d) or ask in the [Forum](https://community.n8n.io/)!\n\nHappy Hacking!",
+        "height": 356.540665091993,
+        "width": 372.51107341403605
+      },
+      "id": "a2f6ad72-ccfe-43b2-9975-ad179cd8d4ea",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $json.file_added }}",
+        "options": {}
+      },
+      "id": "d0bbb81b-1355-4846-944e-d6f508ceffe6",
+      "name": "Read File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        740,
+        1960
+      ]
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.data }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "filter_by_filename",
+                "value": "={{ $json.file_location }}"
+              },
+              {
+                "name": "filter_by_created_month",
+                "value": "={{ $now.year + '-' + $now.monthShort }}"
+              },
+              {
+                "name": "filter_by_created_week",
+                "value": "={{ $now.year + '-' + $now.monthShort + '-W' + $now.weekNumber }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "33d8dd6c-f49d-49a1-bb5a-6bcf37b1b769",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        2120
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "82486171-69f7-4ced-ac9c-abc2f0c45f5b",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        2240
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41a1d4ca-e5a5-4fb9-b249-8796ae759b33",
+              "name": "data",
+              "value": "=## file location\n{{ [$json.directory, $json.fileName].join('/') }}\n## file created\n{{ $now.toISO() }}\n## file contents\n{{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "c091704d-b81c-448b-8c90-156ef568b871",
+              "name": "file_location",
+              "value": "={{ [$json.directory, $json.fileName].join('/') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a2f2c238-52a7-40bb-be90-f91585f7a71a",
+      "name": "Prepare Embedding Document",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1060,
+        1960
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f4b3633a-752f-45b3-9fd5-a2a9569eec82",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        1500
+      ],
+      "webhookId": "37587fe0-b8db-4012-90a7-1f65b9bfd0df"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "63dfdc6d-7be5-40f0-9852-d5436943bb5b",
+      "name": "Question and Answer Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.3,
+      "position": [
+        2000,
+        1500
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ca5494aa-4aff-420f-9f75-f16bbcfbf8d9",
+      "name": "Vector Store Retriever",
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "840219e1-ed47-4b00-83fd-6b3c0bd71650",
+              "name": "file_added",
+              "value": "={{ $('Set Variables').item.json.file_changed }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a87f9d4-cee4-4cab-b16a-f852877a5abe",
+      "name": "Remap for File_Added Flow",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1320,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://qdrant:6333/collections/{{ $('Set Variables').item.json.qdrant_collection }}/points/scroll",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"filter\": {\n        \"must\": [\n            {\n                \"key\": \"metadata.filter_by_filename\",\n                \"match\": {\n                    \"value\": \"{{ $json.file_changed }}\"\n                }\n            }\n        ]\n    },\n    \"limit\": 1,\n    \"with_payload\": false,\n    \"with_vector\": false\n}",
+        "options": {}
+      },
+      "id": "48bcae2d-ae10-4651-a923-ddf522d76c4e",
+      "name": "Search For Existing Point",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        740,
+        1120
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "0392bac0-8fb5-406b-b59f-575edf5ab30d",
+              "leftValue": "={{ $json.result.points }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9b2444ad-8e2f-449a-a029-8bd0002c2511",
+      "name": "Has Existing Point?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        920,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://qdrant:6333/collections/{{ $('Set Variables').item.json.qdrant_collection }}/points/delete",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "points",
+              "value": "={{ $json.result.points.map(point => point.id) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "caf56255-a9e5-44c8-b12a-600eb33de712",
+      "name": "Delete Existing Point",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        1540
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://qdrant:6333/collections/{{ $('Set Variables').item.json.qdrant_collection }}/points/scroll",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"filter\": {\n        \"must\": [\n            {\n                \"key\": \"metadata.filter_by_filename\",\n                \"match\": {\n                    \"value\": \"{{ $json.file_changed }}\"\n                }\n            }\n        ]\n    },\n    \"limit\": 1,\n    \"with_payload\": false,\n    \"with_vector\": false\n}",
+        "options": {}
+      },
+      "id": "b1b0cb9d-cbd8-43e5-b791-0bc86759c9d7",
+      "name": "Search For Existing Point1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        740,
+        1540
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "0392bac0-8fb5-406b-b59f-575edf5ab30d",
+              "leftValue": "={{ $json.result.points }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bc1e9f67-ad6f-44dd-9408-a4275526627d",
+      "name": "Has Existing Point?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        920,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://qdrant:6333/collections/{{ $('Set Variables').item.json.qdrant_collection }}/points/delete",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "points",
+              "value": "={{ $json.result.points.map(point => point.id) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4642abc2-d04d-47c2-80a1-f12fe2f1b68c",
+      "name": "Delete Existing Point1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        1120
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "a1f6d86a-9805-4d0e-ac70-90c9cf0ad339",
+                    "leftValue": "={{ $json.file_deleted }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "file_deleted"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "d15cde67-b5b0-4676-b4fb-ead749147392",
+                    "leftValue": "={{ $json.file_changed }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "file_changed"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.file_added }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "file_added"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2d9b056b-987c-4aa6-aa3f-0d2aeeeec88a",
+      "name": "Handle File Event",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        400,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Step 2. When files are removed, the vector point is cleared.\n[Learn how to delete points using the Qdrant API](https://qdrant.tech/documentation/concepts/points/#delete-points)\n\nTo keep our vectorstore relevant, we'll implement a simple synchronisation system whereby documents deleted from the local file folder are also purged from Qdrant. This can be simply achieved using Qdrant APIs.",
+        "height": 335.8400964393443,
+        "width": 943.6056742347494,
+        "color": 7
+      },
+      "id": "e7f597cf-6c07-4a12-ad39-3f9d0646c60f",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Step 3. When files are updated, the vector point is updated.\n[Learn how to delete points using the Qdrant API](https://qdrant.tech/documentation/concepts/points/#delete-points)\n\nSimilarly to the files deleted branch, when we encounter a change in a file we'll update the matching vector point in Qdrant to ensure our vector store stays relevant. Here, we can achieve this my deleting the existing vector point and creating it anew with the updated bank statement.",
+        "height": 433.01782147687817,
+        "width": 944.8425028675135,
+        "color": 7
+      },
+      "id": "9b2bc0cd-6c28-4f98-9f26-e3903e53375f",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Step 4. When new files are added, add them to Qdrant Vectorstore.\n[Read more about the Qdrant node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant)\n\nUsing Qdrant, we'll able to create a simple yet powerful RAG based application for our bank statements. One of Qdrant's most powerful features is its filtering system, we'll use it to manage the synchronisation of our local file system and Qdrant.",
+        "height": 629.9714759033081,
+        "width": 941.4620901171372,
+        "color": 7
+      },
+      "id": "1fd21ab2-6666-4d48-ad2f-4d622da7f3d7",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1780
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Step 5. Create AI Agent expert on historic bank statements \n[Read more about the Question & Answer Chain](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainretrievalqa)\n\nFinally, let's use a Question & Answer AI node to combine the Mistral AI model and Qdrant as the vector store retriever to create a local expert for all our bank statements questions. ",
+        "height": 759.7908149448928,
+        "width": 744.4578330639196,
+        "color": 7
+      },
+      "id": "eb27d4e7-2bbe-4a9e-bdf6-c35cdafd3f66",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "bge-m3:latest"
+      },
+      "id": "3cf6f57f-5522-4767-8b9e-1b0e227ce073",
+      "name": "Embeddings Ollama",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        2120
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "bge-m3:latest"
+      },
+      "id": "5119d94b-9482-4d5d-9642-1cf45ed7faa9",
+      "name": "Embeddings Ollama1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        1920
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "id": "c81134b7-d19a-4703-9174-b95303997eaa",
+      "name": "Ollama Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        1660
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "local_bank_statements",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "46658f4a-4198-488a-94a0-e6a6a92569ee",
+      "name": "Qdrant Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        1780
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "id": "16aa4167-bf3b-4ec3-a722-ba2cd142b40e",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        900,
+        1960
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "={{ $('Set Variables').item.json.qdrant_collection }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "c618b14b-d3ad-4366-ab8a-698318768b26",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        1960
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Local File Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Variables": {
+      "main": [
+        [
+          {
+            "node": "Handle File Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read File": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Embedding Document": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remap for File_Added Flow": {
+      "main": [
+        [
+          {
+            "node": "Read File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search For Existing Point": {
+      "main": [
+        [
+          {
+            "node": "Has Existing Point?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search For Existing Point1": {
+      "main": [
+        [
+          {
+            "node": "Has Existing Point?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Existing Point?1": {
+      "main": [
+        [
+          {
+            "node": "Delete Existing Point",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Existing Point": {
+      "main": [
+        [
+          {
+            "node": "Remap for File_Added Flow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Existing Point?": {
+      "main": [
+        [
+          {
+            "node": "Delete Existing Point1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle File Event": {
+      "main": [
+        [
+          {
+            "node": "Search For Existing Point",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Search For Existing Point1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Read File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Prepare Embedding Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Set Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8ff367ae-7952-41eb-b443-a2e0137eed43",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "QtlhBtIGNtjJbBSk",
+  "tags": []
+}

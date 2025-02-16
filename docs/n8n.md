@@ -2,6 +2,17 @@
 
 Running **n8n** workflow automation tool in `docker-compose` with [OrbStack](https://docs.orbstack.dev/docker/domains)
 
+## Install
+
+Optically install n8n cli
+
+```shell
+# install CLI (one-time)
+pnpm add -g n8n@next
+# to update to latest version
+pnpm update -g n8n@next  
+```
+
 ## Start
 
 To start **n8n** with **PostgreSQL** simply start `docker-compose` by executing the following
@@ -12,6 +23,10 @@ command in the current folder.
 > then change the default postgres `username` and `password` in the [`.env`](.env) file, if you prefer.
 
 ```shell
+# for first time
+docker compose --profile first-time-only up
+# docker compose up n8n-import n8n
+# for next time
 docker-compose up
 ```
 
@@ -68,8 +83,10 @@ Quick start and usage
 ## Reference
 
 - [Deploy n8n with Docker Compose for Automating AI Workflows](https://autoize.com/deploy-n8n-with-docker-compose-for-automating-ai-workflows/)
-- [Self-hosted AI starter kit](https://github.com/n8n-io/self-hosted-ai-starter-kit/tree/main)
+- [Self-hosted AI starter kit](https://github.com/coleam00/ai-agents-masterclass/tree/main/local-ai-packaged), [video](https://www.youtube.com/watch?v=V_0dNE-H2gw)
 - [Local AI with Docker, n8n, Qdrant, and Ollama](https://www.datacamp.com/tutorial/local-ai)
 - [Extract personal data with self-hosted LLM Mistral NeMo](https://n8n.io/workflows/2766-extract-personal-data-with-self-hosted-llm-mistral-nemo/)
 - [Building RAG Chatbot for Movie Recommendations with Qdrant and Open AI](https://n8n.io/workflows/2440-building-rag-chatbot-for-movie-recommendations-with-qdrant-and-open-ai/)
 - [Build a custom knowledge RAG chatbot using n8n](https://blog.n8n.io/rag-chatbot/)
+- [Scaling n8n](https://docs.n8n.io/hosting/scaling/overview/), [video](https://www.youtube.com/watch?v=PnoE0xV8BX8)
+- [Auth with n8n webhooks](https://please-open.it/blog/n8n-openid-client/)
