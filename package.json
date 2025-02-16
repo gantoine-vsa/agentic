@@ -23,15 +23,15 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@ai-sdk/openai": "1.1.9",
-		"@ai-sdk/openai-compatible": "0.1.8",
+		"@ai-sdk/openai": "1.1.12",
+		"@ai-sdk/openai-compatible": "0.1.10",
 		"@biomejs/biome": "1.9.4",
-		"ai": "4.1.26",
+		"ai": "4.1.41",
 		"ollama-ai-provider": "1.2.0",
-		"zod": "3.24.1"
+		"zod": "3.24.2"
 	},
 	"devDependencies": {
-		"@types/node": "22.13.1",
+		"@types/node": "22.13.4",
 		"tsx": "4.19.2",
 		"typescript": "5.7.3"
 	}
