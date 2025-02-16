@@ -57,9 +57,7 @@ services:
       - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
       - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
       - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
-      # - N8N_ENCRYPTION_KEY
-      # - N8N_USER_MANAGEMENT_JWT_SECRET
-      # - OLLAMA_HOST=host.docker.internal:11434
+      - N8N_ENCRYPTION_KEY
     volumes:
       - ./config/n8n:/backup
     depends_on:
