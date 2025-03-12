@@ -12,7 +12,10 @@
 		"agent": "tsx --env-file=.env src/agent/index.ts",
 		"enum": "tsx --env-file=.env src/enum/index.ts",
 		"evaluator": "tsx --env-file=.env src/evaluator/index.ts",
-		"loan": "tsx --env-file=.env src/loan/index.ts"
+		"loan": "tsx --env-file=.env src/loan/index.ts",
+		"mcp:sse:server": "tsx --env-file=.env src/mcp/sse/server.ts",
+		"mcp:sse:client": "tsx --env-file=.env src/mcp/sse/client.ts",
+		"mcp:stdio:client": "tsx --env-file=.env src/mcp/stdio/client.ts"
 	},
 	"author": "Sumanth Chinthagunta",
 	"license": "MIT",
@@ -23,16 +26,19 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@ai-sdk/openai": "1.1.12",
-		"@ai-sdk/openai-compatible": "0.1.10",
+		"@ai-sdk/openai": "1.2.3",
+		"@ai-sdk/openai-compatible": "0.1.14",
 		"@biomejs/biome": "1.9.4",
-		"ai": "4.1.41",
+		"@modelcontextprotocol/sdk": "1.7.0",
+		"ai": "4.1.58",
+		"express": "4.21.2",
 		"ollama-ai-provider": "1.2.0",
 		"zod": "3.24.2"
 	},
 	"devDependencies": {
-		"@types/node": "22.13.4",
-		"tsx": "4.19.2",
-		"typescript": "5.7.3"
+		"@types/express": "5.0.0",
+		"@types/node": "22.13.10",
+		"tsx": "4.19.3",
+		"typescript": "5.8.2"
 	}
 }
