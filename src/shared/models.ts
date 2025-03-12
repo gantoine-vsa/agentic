@@ -7,13 +7,15 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
  */
 
 export const smallOpenAiModel = openai("gpt-4o-mini");
+export const o3OpenAiModel = openai("o3-mini-2025-01-31");
 
 /**
  * Local Models
  */
 
 // Ollama Models
-export const ollamaLlama2Model = ollama("llama2");
+export const ollamaLlama2Model = ollama("llama3.2:latest");
+export const ollamaPhi4Model = ollama("phi4-mini:latest");
 export const ollamaDeepseekAIModel = ollama("deepseek-r1:7b");
 
 // LMStudio Models

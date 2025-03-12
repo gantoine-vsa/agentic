@@ -134,3 +134,4 @@ n8n audit
 - [Build a custom knowledge RAG chatbot using n8n](https://blog.n8n.io/rag-chatbot/)
 - [Scaling n8n](https://docs.n8n.io/hosting/scaling/overview/), [video](https://www.youtube.com/watch?v=PnoE0xV8BX8)
 - [Auth with n8n webhooks](https://please-open.it/blog/n8n-openid-client/)
+- [How I Parse 99% of PDFs into Structured Data](https://www.youtube.com/watch?v=QVTZ8f9l1Ko)
