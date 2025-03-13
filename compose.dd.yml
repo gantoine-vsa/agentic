@@ -1,0 +1,145 @@
+
+services:
+  ###########################################################################
+  # postgres database
+  ###########################################################################
+  postgres:
+    image: postgres:17-alpine
+    hostname: postgres
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./config/db/init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:Z
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_NON_ROOT_USER
+      - POSTGRES_NON_ROOT_PASSWORD
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ###########################################################################
+  # Qdrant - Open-source, high performance vector store
+  ###########################################################################
+  qdrant:
+    image: qdrant/qdrant
+    hostname: qdrant
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - 6333:6333
+    expose:
+      - '6333'
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  ###########################################################################
+  # n8n-import: import pre-build workflows
+  ###########################################################################
+  n8n-import:
+    image: docker.n8n.io/n8nio/n8n
+    hostname: n8n-import
+    container_name: n8n-import
+    entrypoint: /bin/sh
+    profiles: [first-time-only]
+    command:
+      - "-c"
+      - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - N8N_ENCRYPTION_KEY
+    volumes:
+      - ./config/n8n:/backup
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ###########################################################################
+  # n8n is an extendable workflow automation tool.
+  # Documentation: https://n8n.io
+  # Environment variables: https://docs.n8n.io/hosting/configuration/environment-variables/
+  ###########################################################################
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    hostname: n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - 5678:5678
+    expose:
+      - '5678'
+    links:
+      - postgres
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - NODE_ENV=production
+      # - N8N_EDITOR_BASE_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
+      # - WEBHOOK_URL=https://n8n.${COMPOSE_PROJECT_NAME}.orb.local
+      - GENERIC_TIMEZONE
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_ENCRYPTION_KEY
+      - N8N_USER_MANAGEMENT_JWT_SECRET
+      - OLLAMA_HOST=host.docker.internal:11434
+      # - N8N_EMAIL_MODE=smtp
+      # - N8N_SMTP_HOST=<smtp.sendgrid.net>
+      # - N8N_SMTP_PORT=<465>
+      # - N8N_SMTP_USER=<apikey>
+      # - N8N_SMTP_PASS=<sendgrid api key>
+      # - N8N_SMTP_SENDER=<n8n@example.com>
+      # - N8N_SMTP_SSL=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./shared:/data/shared
+    depends_on:
+      postgres:
+        condition: service_healthy
+      n8n-import:
+        condition: service_completed_successfully
+        required: false
+
+  ###########################################################################
+  # flowise Open source low-code tool for developers to build
+  # customized LLM orchestration flow & AI agents.
+  # Documentation: https://flowiseai.com/
+  ###########################################################################
+  flowise:
+    image: flowiseai/flowise
+    hostname: flowise
+    container_name: flowise
+    restart: unless-stopped
+    profiles: [flowise]
+    environment:
+        - PORT=3001
+    expose:
+        - '3001'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - flowise_data:/root/.flowise
+    entrypoint: /bin/sh -c "sleep 3; flowise start"
+###########################################################################
+# volumes
+###########################################################################
+volumes:
+  pg_data: {}
+  n8n_data: {}
+  qdrant_storage: {}
+  flowise_data: {}
