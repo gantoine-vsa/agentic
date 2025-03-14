@@ -131,6 +131,25 @@ services:
     volumes:
       - flowise_data:/root/.flowise
     entrypoint: /bin/sh -c "sleep 3; flowise start"
+  ###########################################################################
+  # open-webui : Chat User-friendly AI Interface
+  ###########################################################################
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    hostname: webui
+    container_name: webui
+    restart: unless-stopped
+    profiles: [webui]
+    # environment:
+    #     - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    # ports:
+    #   - "3000:8080"
+    expose:
+        - '3000'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - open-webui:/app/backend/data
 ###########################################################################
 # volumes
 ###########################################################################
@@ -139,3 +158,4 @@ volumes:
   n8n_data: {}
   qdrant_storage: {}
   flowise_data: {}
+  open-webui: {}

@@ -12,6 +12,7 @@ ollama pull bge-m3:latest # to generate embeddings
 # ollama pull phi4-mini:latest 
 # ollama pull deepseek-r1:7b
 # ollama pull mistral:latest
+# ollama pull gemma3:4b
 ```
 
 ## Run
