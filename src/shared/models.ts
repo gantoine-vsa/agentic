@@ -7,6 +7,7 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
  */
 
 export const smallOpenAiModel = openai("gpt-4o-mini");
+export const responsesOpenAiModel = openai.responses("gpt-4o-mini");
 export const o3OpenAiModel = openai("o3-mini-2025-01-31");
 
 /**

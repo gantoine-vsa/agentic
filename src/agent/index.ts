@@ -5,6 +5,9 @@ import { smallOpenAiModel as model } from "../shared/models.ts";
 // import {ollamaPhi4Model as model } from "../shared/models.ts";
 // import { lmsDefaultAIModel as model } from "../shared/models.ts";
 
+// import { openai } from "@ai-sdk/openai";
+// const model =  openai.responses("gpt-4o-mini")
+
 const getWeatherTool = tool({
 	description: "Get the current weather in the specified city",
 	parameters: z.object({
