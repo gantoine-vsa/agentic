@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai"; // Ensure OPENAI_API_KEY environment variable is set in .env
 import { ollama } from "ollama-ai-provider";
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
+import { azure } from '@ai-sdk/azure';
 
 /**
  * Remote Models
@@ -10,6 +11,9 @@ export const smallOpenAiModel = openai("gpt-4o-mini");
 export const responsesOpenAiModel = openai.responses("gpt-4o-mini");
 export const o3OpenAiModel = openai("o3-mini-2025-01-31");
 
+
+export const miniAzureModel = azure("gpt-4o-mini");
+export const gpt4oAzureModel = azure("gpt-4o");
 /**
  * Local Models
  */
@@ -18,6 +22,7 @@ export const o3OpenAiModel = openai("o3-mini-2025-01-31");
 export const ollamaLlama2Model = ollama("llama3.2:latest");
 export const ollamaPhi4Model = ollama("phi4-mini:latest");
 export const ollamaDeepseekAIModel = ollama("deepseek-r1:7b");
+export const ollamaGemma3Model = ollama("gemma3:12b");
 
 // LMStudio Models
 const lmstudio = createOpenAICompatible({

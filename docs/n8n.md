@@ -19,16 +19,18 @@ To start **n8n** with **PostgreSQL** simply start `docker-compose` by executing 
 command in the current folder.
 
 > [!IMPORTANT]  
-> But before you do, copy [`.env.example`](.env.example) as `.env` in the project root directory,
-> then change the default postgres `username` and `password` in the [`.env`](.env) file, if you prefer.
+> But before you do, copy [`.env.example`](.env.example) as `.env` in the project root directory,  
+> then change the default postgres `username` and `password` in the [`.env`](.env) file, if you prefer.  
+> also check each n8n [credentials](../config/n8n/credentials) files, and replace `FIXME` with appropriate values.
 
 ```shell
 # for first time
 docker compose --profile first-time-only up
 # for next time
 docker compose up
-# if you want to ssh to n8n container 
+# if you want to ssh to n8n container, and copy files for RAG
 docker compose exec -it n8n sh
+mv /data/shared/my-resume.pdf /data/shared/bank_statements
 ```
 
 Access n8n dashboard at:

@@ -1,5 +1,8 @@
 import { z } from "zod";
 import { streamText, generateText, tool } from "ai";
+// import { miniAzureModel as model } from "../shared/models.ts";
+// import { gpt4oAzureModel as model } from "../shared/models.ts";
+// import { ollamaGemma3Model as model } from "../shared/models.ts";
 import { smallOpenAiModel as model } from "../shared/models.ts";
 // import { ollamaLlama2Model as model } from "../shared/models.ts";
 // import {ollamaPhi4Model as model } from "../shared/models.ts";

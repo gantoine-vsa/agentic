@@ -1,6 +1,9 @@
 import { generateText, generateObject, type CoreMessage } from "ai";
 import { z } from "zod";
 import { smallOpenAiModel as model } from "../shared/models.ts";
+// import { gpt4oAzureModel as model } from "../shared/models.ts";
+// import { ollamaGemma3Model as model } from "../shared/models.ts";
+// import { miniAzureModel as model } from "../shared/models.ts";
 // import { lmsDefaultAIModel as model} from "../shared/models.ts";
 
 let satisfied = false;

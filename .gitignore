@@ -63,5 +63,6 @@ pids
 #############################
 /TODO
 compose.override.yml
+config/ca-certificates.crt
 dist
 shared

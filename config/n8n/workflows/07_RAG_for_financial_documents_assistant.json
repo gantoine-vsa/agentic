@@ -1,5 +1,5 @@
 {
-  "name": "Financial Documents Assistant using Qdrant and Ollama",
+  "name": "07 RAG for financial documents assistant",
   "nodes": [
     {
       "parameters": {
@@ -11,7 +11,8 @@
           "unlink"
         ],
         "options": {
-          "awaitWriteFinish": true
+          "awaitWriteFinish": true,
+          "ignored": "**/.DS_Store"
         }
       },
       "id": "7b2fdf9e-4120-4451-8ebc-31cb318da054",
@@ -967,7 +968,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "8ff367ae-7952-41eb-b443-a2e0137eed43",
+  "versionId": "9a7464b0-e627-4ddd-80d4-b0aa9fc91497",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"

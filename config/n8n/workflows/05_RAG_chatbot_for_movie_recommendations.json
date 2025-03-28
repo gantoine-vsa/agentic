@@ -1,5 +1,5 @@
 {
-  "name": "Building RAG Chatbot for Movie Recommendations  with Qdrant and Ollama",
+  "name": "05 RAG chatbot for movie recommendations",
   "nodes": [
     {
       "parameters": {},
@@ -41,7 +41,7 @@
       "typeVersion": 1,
       "credentials": {
         "githubApi": {
-          "id": "D7Qbux1htnAloB44",
+          "id": "MmPpU3xHPtpjOFd3",
           "name": "GitHub account"
         }
       }
@@ -217,6 +217,19 @@
           "name": "Local Ollama service"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## Sample Prompts\n* suggest hindi movies\n* suggest telugu horror movie"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        320,
+        760
+      ],
+      "typeVersion": 1,
+      "id": "2b756ec5-e565-4aa5-94fc-3011f24c25e2",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -325,7 +338,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "d0c5a28b-6c54-4e07-b830-418f0283b30d",
+  "versionId": "2f2c22fa-5ee3-46c8-a9db-12f4d7b9b1d8",
   "meta": {
     "templateId": "2440",
     "templateCredsSetupCompleted": true,

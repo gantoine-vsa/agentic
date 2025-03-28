@@ -1,5 +1,5 @@
 {
-  "name": "Local RAG AI Agent n8n Workflow",
+  "name": "06 RAG with webhook",
   "nodes": [
     {
       "parameters": {
@@ -672,7 +672,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b60e76de-5b20-4762-b95b-83beb234f604",
+  "versionId": "efb7afa2-0ff4-4e4a-974e-35c37b42fe5b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"

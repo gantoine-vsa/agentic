@@ -2,6 +2,7 @@ import { z } from "zod";
 import { generateObject } from "ai";
 // import { smallOpenAiModel as model } from "../shared/models.ts";
 // import { ollamaLlama2Model as model } from "../shared/models.ts";
+// import { miniAzureModel as model } from "../shared/models.ts";
 import {ollamaPhi4Model as model } from "../shared/models.ts";
 
 const schema = z.object({

@@ -1,5 +1,8 @@
 import { generateObject } from "ai";
-import { smallOpenAiModel as model } from "../shared/models.ts";
+
+// import { smallOpenAiModel as model } from "../shared/models.ts";
+import {ollamaPhi4Model as model } from "../shared/models.ts";
+// import { miniAzureModel as model } from "../shared/models.ts";
 
 export const classifySentiment = async (text: string) => {
 	const { object } = await generateObject({

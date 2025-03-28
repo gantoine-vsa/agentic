@@ -1,5 +1,5 @@
 {
-  "name": "Chat with Postgresql Database",
+  "name": "08 chat with postgres database",
   "nodes": [
     {
       "parameters": {
@@ -44,13 +44,13 @@
       "name": "OpenAI Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "position": [
-        620,
-        640
+        360,
+        720
       ],
       "typeVersion": 1.2,
       "credentials": {
         "openAiApi": {
-          "id": "nYl8elwW55S2x57o",
+          "id": "MoJcp01pCTxRO78u",
           "name": "OpenAi account"
         }
       }
@@ -73,7 +73,7 @@
       "typeVersion": 2.5,
       "credentials": {
         "postgres": {
-          "id": "sDIZxXBlXXuYXXMX",
+          "id": "l3QwgZvIC29RJpow",
           "name": "Postgres account"
         }
       }
@@ -171,7 +171,7 @@
       "typeVersion": 2.5,
       "credentials": {
         "postgres": {
-          "id": "sDIZxXBlXXuYXXMX",
+          "id": "l3QwgZvIC29RJpow",
           "name": "Postgres account"
         }
       }
@@ -194,8 +194,28 @@
       "typeVersion": 2.5,
       "credentials": {
         "postgres": {
-          "id": "sDIZxXBlXXuYXXMX",
+          "id": "l3QwgZvIC29RJpow",
           "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "signals-gpt-4o",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        620,
+        640
+      ],
+      "id": "fc07f4ed-2610-4d5d-a05c-bc53a659a734",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "CkWLGKpw9EgvFkr9",
+          "name": "Azure Open AI account"
         }
       }
     }
@@ -267,13 +287,18 @@
           }
         ]
       ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ef7d4e74-6cf2-44f9-8792-d28be1949b65",
+  "versionId": "295ea09b-f6e8-4007-a071-a0ffc6a983d1",
   "meta": {
     "templateId": "2859",
     "templateCredsSetupCompleted": true,

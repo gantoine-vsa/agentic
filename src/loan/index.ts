@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { streamText, generateObject, tool } from "ai";
-import { smallOpenAiModel as model } from "../shared/models.ts";
+// import { miniAzureModel as model } from "../shared/models.ts";
+import {ollamaPhi4Model as model } from "../shared/models.ts";
+// import { smallOpenAiModel as model } from "../shared/models.ts";
 
 const askAQuestion = async (prompt: string) => {
 	try {
