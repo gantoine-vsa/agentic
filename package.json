@@ -19,7 +19,7 @@
 	},
 	"author": "Sumanth Chinthagunta",
 	"license": "MIT",
-	"packageManager": "pnpm@10.4.0",
+	"packageManager": "pnpm@10.7.0",
 	"engines": {
 		"node": ">=20",
 		"pnpm": ">=9"
