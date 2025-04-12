@@ -9,7 +9,7 @@ services:
     container_name: postgres
     restart: unless-stopped
     ports:
-      - '5432:5432'
+      - 5432:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./config/db/init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:Z
@@ -29,12 +29,12 @@ services:
   # Qdrant - Open-source, high performance vector store
   ###########################################################################
   qdrant:
-    image: qdrant/qdrant
+    image: qdrant/qdrant:v1.13.6
     hostname: qdrant
     container_name: qdrant
     restart: unless-stopped
     expose:
-      - '6333'
+      - 6333
     volumes:
       - qdrant_storage:/qdrant/storage
 
@@ -42,7 +42,7 @@ services:
   # n8n-import: import pre-build workflows
   ###########################################################################
   n8n-import:
-    image: docker.n8n.io/n8nio/n8n:1.85.3
+    image: docker.n8n.io/n8nio/n8n:1.88.0
     hostname: n8n-import
     container_name: n8n-import
     entrypoint: /bin/sh
@@ -70,12 +70,12 @@ services:
   # Environment variables: https://docs.n8n.io/hosting/configuration/environment-variables/
   ###########################################################################
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.85.3
+    image: docker.n8n.io/n8nio/n8n:1.88.0
     hostname: n8n
     container_name: n8n
     restart: unless-stopped
     expose:
-      - '5678'
+      - 5678
     links:
       - postgres
     environment:
@@ -125,7 +125,7 @@ services:
     environment:
         - PORT=3001
     expose:
-        - '3001'
+        - 3001
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -142,10 +142,8 @@ services:
     profiles: [webui]
     # environment:
     #     - OLLAMA_BASE_URL=http://host.docker.internal:11434
-    # ports:
-    #   - "3000:8080"
     expose:
-        - '3000'
+        - 3000
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:

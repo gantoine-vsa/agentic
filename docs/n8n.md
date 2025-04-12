@@ -23,6 +23,14 @@ command in the current folder.
 > then change the default postgres `username` and `password` in the [`.env`](.env) file, if you prefer.  
 > also check each n8n [credentials](../config/n8n/credentials) files, and replace `FIXME` with appropriate values.
 
+(optional) If you are using [OrbStack](https://docs.orbstack.dev/docker/domains), set this environment variables first:
+
+```shell
+export COMPOSE_PROJECT_NAME=agentic
+export COMPOSE_FILE=compose.orbstack.yml
+export COMPOSE_REMOVE_ORPHANS=true
+```
+
 ```shell
 # for first time
 docker compose --profile first-time-only up
@@ -127,6 +135,7 @@ n8n audit
 
 ## Reference
 
+- n8n Community [videos](https://n8engine.com/youtube/videos) and [channels](https://n8engine.com/youtube/channels)
 - [Self-hosted AI starter kit](https://github.com/coleam00/ai-agents-masterclass/tree/main/local-ai-packaged), [video](https://www.youtube.com/watch?v=V_0dNE-H2gw)
 - [Deploy n8n with Docker Compose for Automating AI Workflows](https://autoize.com/deploy-n8n-with-docker-compose-for-automating-ai-workflows/)
 - [Install n8n The Right Way for You](https://www.youtube.com/watch?v=OWa9Qse3ow0)
