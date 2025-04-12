@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T20:05:31.254Z",
+  "id": "srOnR8PAY3u4RSwb",
   "name": "01 demo workflow",
+  "active": false,
   "nodes": [
     {
       "parameters": {},
@@ -45,7 +49,6 @@
       }
     }
   ],
-  "pinData": {},
   "connections": {
     "Chat Trigger": {
       "main": [
@@ -70,15 +73,16 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "de6429a1-313b-4211-8d4a-befa1d10d7a4",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "srOnR8PAY3u4RSwb",
+  "pinData": {},
+  "versionId": "de6429a1-313b-4211-8d4a-befa1d10d7a4",
+  "triggerCount": 0,
   "tags": []
 }

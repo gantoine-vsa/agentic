@@ -105,6 +105,10 @@ default location of n8n CLI config file: `~/.n8n/config`
 export DB_TYPE=postgresdb DB_POSTGRESDB_HOST=localhost DB_POSTGRESDB_PORT=5432 DB_POSTGRESDB_DATABASE=n8n DB_POSTGRESDB_USER=user_postgres DB_POSTGRESDB_PASSWORD=user_password
 ```
 
+> [!NOTE]
+> If you haven't installed n8n cli, use `docker compose exec -T n8n n8n` in place of `n8n` for following commands.  
+> in this case, output will be in container directories
+
 ### credentials
 
 ```shell

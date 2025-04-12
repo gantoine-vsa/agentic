@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T21:14:22.285Z",
+  "id": "QwhXpeAtoW8i0TcJ",
   "name": "04 extract personal data with schema",
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -151,7 +155,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{ $json.text }}\n",
+        "jsonOutput": "={{ $json.output }}",
         "options": {}
       },
       "id": "9625294f-3cb4-4465-9dae-9976e0cf5053",
@@ -206,9 +210,23 @@
         840
       ],
       "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Example Questions \nExtract personal data with self-hosted LLM \n- my name is Sumo Chin, my phone number is 665544333 my address is : 334 ram nagar, riverside CA 92502, USA, please call me for my credit card setup for payment\n",
+        "height": 180,
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -60,
+        500
+      ],
+      "typeVersion": 1,
+      "id": "d4747466-1bd1-43d4-ad64-b8f769db9221",
+      "name": "Sticky Note4"
     }
   ],
-  "pinData": {},
   "connections": {
     "Basic LLM Chain": {
       "main": [
@@ -278,16 +296,17 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1bb493c3-5c63-4612-8a51-d3b631196abb",
+  "staticData": null,
   "meta": {
     "templateId": "2766",
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "QwhXpeAtoW8i0TcJ",
+  "pinData": {},
+  "versionId": "b4e3c6d0-fb5b-486d-b2e5-687ea860c067",
+  "triggerCount": 0,
   "tags": []
 }

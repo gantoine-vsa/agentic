@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T21:19:58.712Z",
+  "id": "Q2NnELvuDJUjXMpo",
   "name": "05 RAG chatbot for movie recommendations",
+  "active": false,
   "nodes": [
     {
       "parameters": {},
@@ -39,6 +43,7 @@
         260
       ],
       "typeVersion": 1,
+      "webhookId": "2d3edbd5-2910-4008-85f2-aff5651f2b84",
       "credentials": {
         "githubApi": {
           "id": "MmPpU3xHPtpjOFd3",
@@ -201,6 +206,7 @@
     },
     {
       "parameters": {
+        "model": "llama3.2:latest",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
@@ -230,9 +236,86 @@
       "typeVersion": 1,
       "id": "2b756ec5-e565-4aa5-94fc-3011f24c25e2",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "id": "3f48368e-2799-4878-a4a0-db18e4a94301",
+      "name": "Ollama Model",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        1100
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "Movies",
+        "topK": 3
+      },
+      "id": "9b5a9659-609b-484d-8937-c0699ffac428",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "id": "6cdf47a8-6c7a-44d2-b806-c1f1dae43385",
+      "name": "Embeddings Ollama1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        1200
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "imdb",
+          "mode": "list",
+          "cachedResultName": "imdb"
+        },
+        "options": {}
+      },
+      "id": "dea8add6-609f-44d0-844d-7663c7294d59",
+      "name": "Qdrant Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        1060
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
     }
   ],
-  "pinData": {},
   "connections": {
     "GitHub": {
       "main": [
@@ -332,18 +415,63 @@
           }
         ]
       ]
+    },
+    "Ollama Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "2f2c22fa-5ee3-46c8-a9db-12f4d7b9b1d8",
+  "staticData": null,
   "meta": {
     "templateId": "2440",
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "Q2NnELvuDJUjXMpo",
+  "pinData": {},
+  "versionId": "9cb66323-35b8-432d-bf4b-39c02a2fa934",
+  "triggerCount": 0,
   "tags": []
 }

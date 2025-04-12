@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T20:05:31.254Z",
+  "id": "KiKeHBdKJI9f8EOy",
   "name": "08 chat with postgres database",
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -220,7 +224,6 @@
       }
     }
   ],
-  "pinData": {},
   "connections": {
     "Chat History": {
       "ai_memory": [
@@ -294,16 +297,17 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "295ea09b-f6e8-4007-a071-a0ffc6a983d1",
+  "staticData": null,
   "meta": {
     "templateId": "2859",
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "KiKeHBdKJI9f8EOy",
+  "pinData": {},
+  "versionId": "295ea09b-f6e8-4007-a071-a0ffc6a983d1",
+  "triggerCount": 0,
   "tags": []
 }

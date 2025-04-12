@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T20:05:31.254Z",
+  "id": "r6ce3jaOZZ0fUAhn",
   "name": "03 structured responce",
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -247,7 +251,6 @@
       "typeVersion": 3.4
     }
   ],
-  "pinData": {},
   "connections": {
     "Ollama Model": {
       "ai_languageModel": [
@@ -301,16 +304,17 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "17991a22-9b9c-400b-911c-60ec57918a3b",
+  "staticData": null,
   "meta": {
     "templateId": "2729",
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "r6ce3jaOZZ0fUAhn",
+  "pinData": {},
+  "versionId": "17991a22-9b9c-400b-911c-60ec57918a3b",
+  "triggerCount": 0,
   "tags": []
 }

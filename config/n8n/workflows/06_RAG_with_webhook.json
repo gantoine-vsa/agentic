@@ -1,5 +1,9 @@
 {
+  "createdAt": "2025-04-12T20:05:31.254Z",
+  "updatedAt": "2025-04-12T20:05:31.254Z",
+  "id": "Oqaw2Hl3CIHXZzx8",
   "name": "06 RAG with webhook",
+  "active": false,
   "nodes": [
     {
       "parameters": {
@@ -456,7 +460,6 @@
       "name": "Read/Write Files from Disk"
     }
   ],
-  "pinData": {},
   "connections": {
     "Ollama Chat Model": {
       "ai_languageModel": [
@@ -668,15 +671,16 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "efb7afa2-0ff4-4e4a-974e-35c37b42fe5b",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "Oqaw2Hl3CIHXZzx8",
+  "pinData": {},
+  "versionId": "efb7afa2-0ff4-4e4a-974e-35c37b42fe5b",
+  "triggerCount": 0,
   "tags": []
 }
