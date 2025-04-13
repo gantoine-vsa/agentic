@@ -12,6 +12,7 @@ Playing with emerging **Agentic AI** frameworks
 
 - **[Vercel AI SDK](./docs/ai-sdk.md)** - A set of Agentic AI code examples using **Vercel AI SDK**
 - **[n8n](./docs/n8n.md)** - Running **n8n** workflow automation tool in `docker-compose` with [OrbStack](https://docs.orbstack.dev/docker/domains)
+- **[Open WebUI](https://openwebui.com/)** - Chat WebUI to connect various LLMs and [MCP Servers](https://docs.openwebui.com/openapi-servers/mcp/) running in n8n
 - **[Flowise](https://flowiseai.com/)** - TODO
 
 ## Experiments

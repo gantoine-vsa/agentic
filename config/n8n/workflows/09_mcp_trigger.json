@@ -1,0 +1,107 @@
+{
+  "name": "09 mcp trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "71954932-a486-4c56-877a-cc4ba2c68b05"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -160
+      ],
+      "id": "9e6c7f62-f2dc-4370-be02-7e42232187ef",
+      "name": "MCP Server Trigger",
+      "webhookId": "71954932-a486-4c56-877a-cc4ba2c68b05"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        40
+      ],
+      "id": "4f0692d8-6a96-4065-80b3-0a50aa498760",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        60
+      ],
+      "id": "3ad1f17f-d105-48a8-8354-7582ed66d8cf",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        120,
+        60
+      ],
+      "id": "6d846870-dd93-443b-bb45-d435c4bbceb2",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "lxgjNvBe88ArGker",
+          "name": "SerpAPI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "06ca7e0e-3f84-4850-befa-a37f75f50512",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "gR1QzMVNbcpbBnBA",
+  "tags": []
+}
